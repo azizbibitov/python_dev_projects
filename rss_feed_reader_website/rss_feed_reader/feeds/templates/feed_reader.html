@@ -1,0 +1,21 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Fetch Feeds</button>
+</form>
+
+{% if feeds %}
+    <h2>Feed Results:</h2>
+    {% for feed in feeds %}
+        <h3>{{ feed.title }}</h3>
+        <p>{{ feed.description }}</p>
+        <ul>
+            {% for entry in feed.entries %}
+                <li>
+                    <a href="{{ entry.link }}">{{ entry.title }}</a>
+                    <p>{{ entry.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endif %}
